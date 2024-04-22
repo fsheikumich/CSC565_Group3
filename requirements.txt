@@ -1,0 +1,203 @@
+Your task 
+
+You are given the requirements for the YMC instruction set and a high-level programing language HLC (high-level code) below.  
+
+Your task is  
+
+To design an encoding system for the YMC instruction set to convert to machine code 
+
+Design a compiler that converts the HLC code to YMC assembly code and the corresponding machine code 
+
+Demonstrate how a processor running YMC changes its state as it executes the machine code. You will demonstrate this by outputting the step-by-step change in the processor's register states as each YMC instruction executes. 
+
+ 
+
+ 
+
+HLC description 
+
+Here's a sample program in HLC. Its features are bolded in the table below: 
+
+ 
+
+Line # 
+
+Description 
+
+1-2 
+
+Variables are declare at the top of the program. First unsigned, then signed. 
+
+1-2 
+
+All variables are implicitly of type 8-bit integer. No need to declare that.  
+
+Only 3 unsigned variables are allowed: a, b, c.  
+
+Only 3 signed variables are allowed: x, y, z. 
+
+4-9 
+
+One assignment is performed per line. Don’t write b = 0, x = 4 etc 
+
+5, 6, 12, 14 
+
+The four arithmetic operations allowed are + - * / 
+
+6 
+
+A single line can have max of two arithmetic operations. Operators are evaluated left to right. 
+
+  For example, Line 6 means c = (b * a) / 10 
+
+6 
+
+Only the integer part of an operation is preserved. So the output of Line 6 right-side is (18*3)/10 = 5 
+
+11, 16 
+
+Two types of conditional structures are allowed: if-else and while loop. No nested structures. 
+
+11-21 
+
+Indentation indicates whether a line is inside an if-else or a while loop 
+
+11, 16 
+
+Only a single relational operator is allowed in if and while statements. 
+
+  So if x > 10 && y < 5 is not allowed. 
+
+17-21 
+
+The print command is the only mechanism to output a value. 
+
+There is no user input command, i.e. a cin equivalent 
+
+ 
+
+ 
+
+YMC assembly - Description 
+
+The YMC instruction set is a hybrid of the LMC and Y86 instruction sets. Its features are: 
+
+ 
+
+It supports 8-bit signed and unsigned integer operations. 
+
+It has 4 general purpose registers eax, ebx, ecx, edx. These are 8-bit wide. 
+
+It has four flags: CF, OF, SF, ZF.  
+
+These are computed when an arithmetic or compare operation is performed. 
+
+The operations it must support are: 
+
+Two mov operations: 
+
+mov ecx, 3        // ecx = 3 
+
+mov ecx, eax    // ecx = eax 
+
+Two-operand arithmetic operations: add, sub, mult, div 
+
+add ecx, eax, ebx  //ecx = eax + ebx 
+
+Three-operand  arithmetic operations 
+
+These are pairs of arithmetic operations using the above two-operand ops. For example, 
+
+addsub eax, eax, ebx, ecx  //eax = eax + ebx - ecx 
+
+subadd edx, eax, ebx, ecx  //edx = eax - ebx + ecx 
+
+multdiv eax, eax, ebx, ecx  //eax = (eax * ebx) / ecx 
+
+… 
+
+All arithmetic operations use the first mentioned register as the destination, and the rest as operands. 
+
+Relational operations >, >=, <, <=, !=, == 
+
+Compare operation 
+
+cmp eax, ecx 
+
+Jump operations 
+
+Conditional: jg, jge, jl, jle, jne, je 
+
+Unconditional: jmp 
+
+loop 
+
+ 
+
+Assume a 1kB byte-addressable memory for storing instructions and data 
+
+The above is the bare minimum instruction set. You can add further instructions if you need them. 
+
+ 
+
+ 
+
+Your implementation's output 
+
+Your final software will take a HLC program as input, decompose it into YMC assembly and machine code, and output a CSV file. This file will show the processor's state after executing each line of the YMC. It is formatted as: 
+
+HLC instruction 
+
+YMC Address 
+
+YMC assembly 
+
+YMC encoding 
+
+Modified registers (if any, after execution) 
+
+Modified flags (if any, after execution) 
+
+while y > 0 
+
+XXXX 
+
+cmp eax, 0 
+
+Jg xxx 
+
+AB CD 
+
+20 XXXX 
+
+---- 
+
+SF = , OF, ZF, CF 
+
+ 
+
+There are multiple stages that you have to execute successfully to get the complete version. Your project's success will be based on how well you executed each project stage, as well as whether you have the complete software. 
+
+ 
+
+Your deliverables 
+
+Implementation code - hosted on GitHub 
+
+A report containing: 
+
+The link to your Github page 
+
+Your encoding system for the YMC assembly 
+
+Flowchart showing the logic to convert a HLC while loop to YMC assembly 
+
+Flowchart showing the logic to convert other HLC instructions to YMC assembly 
+
+A summary of 
+
+What you implemented and what you didn’t  
+
+Where the potential problems are. 
+
+Your demo in class of your implementation - what works and what doesn’t work. Details mentioned in a section below called 'Your demo'. 
