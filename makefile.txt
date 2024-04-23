@@ -1,0 +1,12 @@
+# Makefile for compiling and running the program
+
+# Compiler settings
+PYTHON = python3
+COMPILER_SCRIPT = compilre_code.py
+OUTPUT_FILE = processor_states.csv
+
+#Change code on line 259 
+#between triple quotes in order to change 
+#HLC code being converted
+
+#Run compilre_code.py to generate file and code
